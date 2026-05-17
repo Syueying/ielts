@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upgrade Phrases — IELTS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.6.0/tabler-icons.min.css">
+<style>
+  :root {
+    --bg: #F8F6F1; --surface: #FFFFFF; --surface-alt: #F0EDE6;
+    --ink: #1A1917; --ink-2: #5C5B56; --ink-3: #9B9A94; --ink-4: #C8C6BF;
+    --accent: #2D5BE3; --accent-light: #E8EEFB;
+    --border: rgba(0,0,0,0.08);
+    --radius: 10px; --radius-lg: 14px;
+    --font: 'DM Sans', sans-serif; --font-display: 'Fraunces', serif;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04); --shadow: 0 2px 8px rgba(0,0,0,0.06);
+    --c1:#2D7DD2; --c2:#548C2F; --c3:#D85A30; --c4:#7C4DFF; --c5:#D4537E; --c6:#E2914A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#141413; --surface:#1E1E1C; --surface-alt:#262624;
+      --ink:#EDECE8; --ink-2:#A8A7A1; --ink-3:#6E6D68; --ink-4:#3D3D3A;
+      --accent:#5B8DEF; --accent-light:#1E2A45; --border:rgba(255,255,255,0.08);
+    }
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font); background:var(--bg); color:var(--ink); line-height:1.5; min-height:100vh; }
+  .container { max-width:900px; margin:0 auto; padding:2rem 1.5rem 4rem; }
+
+  header { display:flex; align-items:center; justify-content:space-between; margin-bottom:2.5rem; flex-wrap:wrap; gap:1rem; }
+  h1 { font-family:var(--font-display); font-weight:500; font-size:26px; letter-spacing:-0.02em; }
+  h1 span { font-weight:300; font-style:italic; color:var(--ink-2); }
+  .back-link { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:500; color:var(--ink-3); text-decoration:none; transition:color 0.2s; }
+  .back-link:hover { color:var(--ink); }
+
+  .daily-box {
+    background: var(--accent-light); border:1px solid rgba(45,91,227,0.15); border-radius:var(--radius-lg);
+    padding:16px 20px; margin-bottom:2rem; display:flex; align-items:flex-start; gap:14px;
+  }
+  .daily-box i { font-size:22px; color:var(--accent); flex-shrink:0; margin-top:2px; }
+  .daily-title { font-size:13px; font-weight:600; color:var(--accent); margin-bottom:4px; }
+  .daily-body { font-size:13px; color:var(--ink-2); line-height:1.6; }
+  .daily-phrases { margin-top:10px; display:flex; flex-direction:column; gap:6px; }
+  .daily-phrase { background:var(--surface); border-radius:var(--radius); padding:9px 12px; font-size:13px; border:1px solid var(--border); }
+  .daily-phrase .weak { color:var(--ink-3); text-decoration:line-through; font-size:12px; }
+  .daily-phrase .strong { color:var(--ink); font-weight:500; }
+
+  .topic-nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:2rem; }
+  .topic-pill {
+    padding:6px 14px; border-radius:20px; font-size:12px; font-weight:500;
+    background:var(--surface); border:1px solid var(--border); cursor:pointer;
+    text-decoration:none; color:var(--ink-2); transition:background 0.15s, color 0.15s;
+  }
+  .topic-pill:hover { color:var(--ink); background:var(--surface-alt); }
+
+  .topic-section { margin-bottom:2.5rem; }
+  .topic-header {
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+    padding-bottom:10px; border-bottom:2px solid var(--border);
+  }
+  .topic-icon { font-size:20px; }
+  .topic-name { font-family:var(--font-display); font-size:20px; font-weight:500; letter-spacing:-0.02em; }
+  .topic-tag { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; padding:3px 10px; border-radius:12px; }
+
+  .phrase-table { width:100%; border-collapse:collapse; }
+  .phrase-table th {
+    text-align:left; font-size:10px; font-weight:600; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-3); padding:0 12px 8px; border-bottom:1px solid var(--border);
+  }
+  .phrase-table td { padding:10px 12px; font-size:13px; vertical-align:top; border-bottom:1px solid var(--border); }
+  .phrase-table tr:last-child td { border-bottom:none; }
+  .phrase-table tr:hover td { background:var(--surface-alt); }
+  .cell-weak { color:var(--ink-3); font-style:italic; }
+  .cell-strong { color:var(--ink); font-weight:500; }
+  .cell-note { color:var(--ink-3); font-size:12px; line-height:1.4; }
+
+  .phrase-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm); }
+
+  @media (max-width:600px) {
+    .phrase-table th:nth-child(3), .phrase-table td:nth-child(3) { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Upgrade phrases <span>IELTS Writing</span></h1>
+    <a href="index.html" class="back-link"><i class="ti ti-arrow-left" style="font-size:15px"></i> Back to tracker</a>
+  </header>
+
+  <div class="daily-box" id="daily-box">
+    <i class="ti ti-sparkles"></i>
+    <div style="flex:1">
+      <div class="daily-title">Today's 5 phrases — memorise these</div>
+      <div class="daily-body">Read each one out loud. Use it in a sentence of your own. Come back tomorrow for 5 more.</div>
+      <div class="daily-phrases" id="daily-phrases"></div>
+    </div>
+  </div>
+
+  <div class="topic-nav" id="topic-nav"></div>
+
+  <div id="topics"></div>
+
+</div>
+
+<script>
+const TOPICS = [
+  {
+    id:'general', name:'General — all topics', icon:'ti-writing', color:'#2D5BE3',
+    phrases:[
+      { weak:'many people think', strong:'a growing body of opinion holds that / it is widely argued that', note:'Opens an argument without stating it as absolute fact' },
+      { weak:'this is a big problem', strong:'this poses a significant challenge / this represents a pressing concern', note:'More measured and academic' },
+      { weak:'because of this', strong:'as a consequence / consequently / this has led to', note:'Vary between these three — don\'t repeat the same one' },
+      { weak:'help', strong:'facilitate / address / alleviate / mitigate', note:'Choose based on context: facilitate = make easier; mitigate = reduce harm' },
+      { weak:'increase', strong:'surge / escalate / rise sharply / grow significantly', note:'Match intensity to the data — "surge" implies a steep rise' },
+      { weak:'decrease', strong:'decline / diminish / fall / drop considerably', note:'"Diminish" often implies gradual reduction' },
+      { weak:'important', strong:'crucial / pivotal / paramount / indispensable', note:'"Pivotal" works well for turning-point arguments' },
+      { weak:'bad / harmful', strong:'detrimental / adverse / damaging / counterproductive', note:'"Counterproductive" = works against the intended goal' },
+      { weak:'good / useful', strong:'beneficial / advantageous / conducive to', note:'"Conducive to" is always followed by a noun: conducive to growth' },
+      { weak:'show', strong:'demonstrate / illustrate / highlight / reveal', note:'"Reveal" implies something previously hidden — use carefully' },
+      { weak:'think / say', strong:'argue / contend / assert / maintain / suggest', note:'"Contend" and "maintain" signal the speaker holds this view firmly' },
+      { weak:'get worse', strong:'deteriorate / exacerbate / worsen', note:'"Exacerbate" means to make an existing problem worse' },
+      { weak:'make better', strong:'enhance / improve / foster / promote', note:'"Foster" = encourage development over time' },
+    ]
+  },
+  {
+    id:'education', name:'Education', icon:'ti-school', color:'#2D7DD2',
+    phrases:[
+      { weak:'students learn a lot', strong:'students acquire a broad range of knowledge and skills', note:'Separates knowledge (facts) from skills (abilities)' },
+      { weak:'education is important', strong:'education plays a pivotal role in individual development', note:'Ties education to a concrete outcome' },
+      { weak:'schools should teach children', strong:'educational institutions bear responsibility for nurturing', note:'"Nurturing" implies long-term development, not just instruction' },
+      { weak:'children need more learning', strong:'access to quality education is fundamental to social mobility', note:'Links education to its societal purpose' },
+      { weak:'bad for education', strong:'detrimental to academic development / impedes educational progress', note:'' },
+      { weak:'good teachers', strong:'dedicated and qualified educators', note:'' },
+      { weak:'students study hard', strong:'students demonstrate strong academic commitment', note:'' },
+      { weak:'learning new things', strong:'the acquisition of new knowledge and competencies', note:'' },
+      { weak:'bad grades', strong:'underperformance / poor academic outcomes', note:'' },
+      { weak:'go to university', strong:'pursue higher education / attain a university degree', note:'' },
+    ]
+  },
+  {
+    id:'technology', name:'Technology & Society', icon:'ti-device-laptop', color:'#7C4DFF',
+    phrases:[
+      { weak:'technology is changing everything', strong:'rapid technological advancement is transforming every aspect of modern life', note:'Specifies the scope and pace' },
+      { weak:'social media is popular', strong:'social media platforms have become deeply embedded in daily life', note:'"Embedded" implies it\'s now structural, not optional' },
+      { weak:'technology can be bad', strong:'over-reliance on technology poses significant risks', note:'More precise — identifies the problem as over-reliance, not technology itself' },
+      { weak:'new technology', strong:'cutting-edge / emerging technology / technological innovation', note:'' },
+      { weak:'people use technology a lot', strong:'technology has become an integral part of modern life', note:'' },
+      { weak:'technology helps us communicate', strong:'technology has revolutionised the way we communicate and share information', note:'' },
+      { weak:'social media is bad for young people', strong:'excessive social media use can have adverse effects on adolescent wellbeing', note:'"Adolescent wellbeing" is a precise academic term' },
+      { weak:'the internet gives us information', strong:'the internet provides unprecedented access to information', note:'"Unprecedented" = on a scale never seen before — strong word, use sparingly' },
+      { weak:'technology causes job losses', strong:'automation threatens to displace workers in low-skilled industries', note:'' },
+      { weak:'people are addicted to their phones', strong:'smartphone dependency has become a growing public health concern', note:'' },
+    ]
+  },
+  {
+    id:'health', name:'Health', icon:'ti-heart-rate-monitor', color:'#D85A30',
+    phrases:[
+      { weak:'people are getting fatter', strong:'obesity rates are rising / the prevalence of obesity has increased dramatically', note:'"Prevalence" is a standard public health term' },
+      { weak:'exercise is good for you', strong:'regular physical activity yields significant health benefits', note:'"Yields" is formal and precise' },
+      { weak:'unhealthy food', strong:'processed and high-calorie foods / nutritionally poor diets', note:'' },
+      { weak:'mental health is important', strong:'mental wellbeing is as crucial as physical health', note:'Creates a comparison that implicitly challenges its historical neglect' },
+      { weak:'many people are sick', strong:'the burden of preventable disease continues to grow', note:'"Burden of disease" is a standard public health phrase' },
+      { weak:'eating healthy is important', strong:'a balanced diet is essential for maintaining long-term health', note:'' },
+      { weak:'the government should help', strong:'authorities have a responsibility to implement public health initiatives', note:'' },
+      { weak:'people live longer now', strong:'life expectancy has risen significantly in recent decades', note:'' },
+      { weak:'smoking is bad', strong:'tobacco use remains one of the leading causes of preventable death', note:'"Preventable death" is strong and specific' },
+      { weak:'stress makes you sick', strong:'chronic stress is strongly associated with a range of physical and mental health disorders', note:'' },
+    ]
+  },
+  {
+    id:'environment', name:'Environment', icon:'ti-leaf', color:'#548C2F',
+    phrases:[
+      { weak:'global warming is getting worse', strong:'the effects of climate change are becoming increasingly severe / climate change is accelerating', note:'' },
+      { weak:'pollution is bad', strong:'environmental degradation poses a long-term threat to human and ecological health', note:'' },
+      { weak:'we need to protect nature', strong:'environmental conservation is imperative for future generations', note:'"Imperative" = absolutely essential' },
+      { weak:'factories cause pollution', strong:'industrial emissions are a primary contributor to environmental degradation', note:'' },
+      { weak:'we should use less energy', strong:'reducing energy consumption is a critical step toward sustainability', note:'' },
+      { weak:'animals are dying out', strong:'biodiversity loss is occurring at an unprecedented rate', note:'' },
+      { weak:'the earth is warming up', strong:'rising global temperatures are disrupting ecosystems worldwide', note:'' },
+      { weak:'plastic is bad for the ocean', strong:'plastic waste poses a serious threat to marine ecosystems', note:'' },
+      { weak:'governments should do more', strong:'governments must enact stronger environmental legislation', note:'"Enact legislation" is the precise term — better than "make laws"' },
+      { weak:'renewable energy is the answer', strong:'transitioning to renewable energy sources is essential for reducing carbon emissions', note:'' },
+    ]
+  },
+  {
+    id:'society', name:'Society, Work & Governance', icon:'ti-building-community', color:'#D4537E',
+    phrases:[
+      { weak:'the gap between rich and poor', strong:'socioeconomic inequality / wealth disparity continues to widen', note:'"Disparity" is slightly softer than "inequality" — both are acceptable' },
+      { weak:'crime is increasing', strong:'crime rates are escalating / criminal activity is on the rise', note:'' },
+      { weak:'the government should do something', strong:'policymakers must take decisive action / authorities are obligated to intervene', note:'"Policymakers" is more precise than "government"' },
+      { weak:'getting a job is hard', strong:'the labour market has become increasingly competitive', note:'' },
+      { weak:'working too much is bad', strong:'excessive working hours can lead to burnout and diminished productivity', note:'' },
+      { weak:'women should be equal to men', strong:'gender equality in the workplace remains an unresolved challenge', note:'' },
+      { weak:'old people', strong:'the elderly / senior citizens / the ageing population', note:'Use "ageing population" when discussing demographic trends' },
+      { weak:'young people', strong:'the younger generation / adolescents / young adults', note:'Avoid "youth" as a mass noun — it sounds informal in writing' },
+      { weak:'society is changing', strong:'profound social transformation is underway', note:'' },
+      { weak:'laws should be stricter', strong:'stricter regulatory frameworks are needed to address this issue', note:'"Regulatory frameworks" = the system of rules, not just individual laws' },
+    ]
+  },
+];
+
+const DAILY_KEY = 'ielts_daily_phrases_' + new Date().toISOString().slice(0,10);
+let dailyPhrases = JSON.parse(localStorage.getItem(DAILY_KEY) || 'null');
+
+if (!dailyPhrases) {
+  const all = TOPICS.flatMap(t => t.phrases.map(p => ({ ...p, topic: t.name })));
+  const shuffled = all.sort(() => Math.random() - 0.5);
+  dailyPhrases = shuffled.slice(0, 5);
+  localStorage.setItem(DAILY_KEY, JSON.stringify(dailyPhrases));
+}
+
+document.getElementById('daily-phrases').innerHTML = dailyPhrases.map(p => `
+  <div class="daily-phrase">
+    <div class="weak">${p.weak}</div>
+    <div class="strong">→ ${p.strong}</div>
+  </div>`).join('');
+
+const nav = document.getElementById('topic-nav');
+TOPICS.forEach(t => {
+  const a = document.createElement('a');
+  a.href = '#' + t.id;
+  a.className = 'topic-pill';
+  a.textContent = t.name;
+  nav.appendChild(a);
+});
+
+const container = document.getElementById('topics');
+TOPICS.forEach(t => {
+  const rows = t.phrases.map(p => `
+    <tr>
+      <td class="cell-weak">${p.weak}</td>
+      <td class="cell-strong">${p.strong}</td>
+      <td class="cell-note">${p.note}</td>
+    </tr>`).join('');
+
+  container.innerHTML += `
+    <div class="topic-section" id="${t.id}">
+      <div class="topic-header">
+        <i class="ti ${t.icon} topic-icon" style="color:${t.color}"></i>
+        <div class="topic-name">${t.name}</div>
+        <span class="topic-tag" style="background:${t.color}22;color:${t.color}">${t.phrases.length} phrases</span>
+      </div>
+      <div class="phrase-card">
+        <table class="phrase-table">
+          <thead><tr><th>Weak phrase</th><th>Upgrade to</th><th>When / why</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+});
+</script>
+</body>
+</html>

@@ -511,6 +511,55 @@
     transform: translateX(-50%) translateY(0);
   }
 
+  .phrases-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(124,77,255,0.1);
+    color: #7C4DFF;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .phrases-link:hover { background: rgba(124,77,255,0.18); }
+
+  .habits-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 2rem; }
+
+  .habit-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .habit-row.done { color: var(--ink-3); text-decoration: line-through; }
+
+  .habit-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .habit-row.done .habit-check { background: var(--accent); border-color: var(--accent); color: #fff; }
+
   .notes-section { padding-bottom: 2rem; }
 
   .notes-heading {
@@ -789,9 +838,15 @@
     <div>
       <h1>IELTS tracker <span>30 days</span></h1>
     </div>
-    <div class="target-badge">
-      <i class="ti ti-target" style="font-size:15px"></i>
-      Target: Band 7.0
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div class="target-badge">
+        <i class="ti ti-target" style="font-size:15px"></i>
+        Target: Band 7.0
+      </div>
+      <a href="phrases.html" class="phrases-link">
+        <i class="ti ti-vocabulary" style="font-size:15px"></i>
+        Upgrade phrases
+      </a>
     </div>
   </header>
 
@@ -888,6 +943,9 @@
 
   <div class="panel" id="panel-notes">
     <div class="notes-section">
+
+      <div class="notes-heading">Daily habits — check off each day</div>
+      <div class="habits-grid" id="habits-grid"></div>
 
       <div class="notes-heading">Task 2 — Question Types &amp; Structures</div>
 
@@ -1322,6 +1380,32 @@ function clearAll() {
   toast('All data cleared');
 }
 
+const HABITS = [
+  'Write one essay or Task 1 response',
+  'Review 5 upgrade phrases (open Upgrade Phrases page)',
+  'Read back yesterday\'s essay — spot one recurring error'
+];
+const HABIT_KEY = 'ielts_habits_' + new Date().toISOString().slice(0,10);
+let habitsDone = JSON.parse(localStorage.getItem(HABIT_KEY) || '[]');
+
+function renderHabits() {
+  document.getElementById('habits-grid').innerHTML = HABITS.map((h, i) => {
+    const done = habitsDone.includes(i);
+    return `<div class="habit-row${done?' done':''}" onclick="toggleHabit(${i})">
+      <div class="habit-check">${done?'✓':''}</div>
+      <span>${h}</span>
+    </div>`;
+  }).join('');
+}
+
+function toggleHabit(i) {
+  const idx = habitsDone.indexOf(i);
+  if (idx > -1) habitsDone.splice(idx, 1); else habitsDone.push(i);
+  localStorage.setItem(HABIT_KEY, JSON.stringify(habitsDone));
+  renderHabits();
+}
+
+renderHabits();
 render();
 </script>
 
