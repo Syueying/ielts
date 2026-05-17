@@ -511,7 +511,123 @@
     transform: translateX(-50%) translateY(0);
   }
 
+  .notes-section { padding-bottom: 2rem; }
+
+  .notes-heading {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .note-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .note-type {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .note-trigger {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-2);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .note-structure { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+
+  .note-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .note-para {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-3);
+    min-width: 68px;
+    flex-shrink: 0;
+  }
+
+  .note-warning {
+    font-size: 12px;
+    color: #D85A30;
+    background: rgba(216,90,48,0.08);
+    border-radius: 6px;
+    padding: 7px 10px;
+    margin-top: 4px;
+  }
+
+  .note-formula {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .note-formula-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .note-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .note-formula-avoid {
+    font-size: 12px;
+    color: var(--ink-3);
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+  }
+
   @media (max-width: 700px) {
+    .notes-grid { grid-template-columns: 1fr; }
+  }
     .metrics, .sections, .week-grid { grid-template-columns: repeat(2, 1fr); }
     .chart-row { grid-template-columns: 1fr; }
     .form-grid { grid-template-columns: 1fr; }
@@ -540,6 +656,7 @@
     <button class="tab-btn active" data-tab="overview"><i class="ti ti-chart-dots-3" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>Overview</button>
     <button class="tab-btn" data-tab="log"><i class="ti ti-plus" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>Log session</button>
     <button class="tab-btn" data-tab="history"><i class="ti ti-list" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>History</button>
+    <button class="tab-btn" data-tab="notes"><i class="ti ti-notebook" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>Notes</button>
   </div>
 
   <div class="panel active" id="panel-overview">
@@ -620,6 +737,73 @@
       <i class="ti ti-trash" style="font-size:14px;vertical-align:-2px;margin-right:4px"></i>
       Clear all data
     </button>
+  </div>
+
+  <div class="panel" id="panel-notes">
+    <div class="notes-section">
+
+      <div class="notes-heading">Task 2 — Question Types &amp; Structures</div>
+
+      <div class="notes-grid">
+
+        <div class="note-card">
+          <div class="note-type">Type 1 · Discussion</div>
+          <div class="note-trigger">"Discuss both views and give your opinion"</div>
+          <div class="note-structure">
+            <div class="note-row"><span class="note-para">Intro</span><span>Paraphrase + your position</span></div>
+            <div class="note-row"><span class="note-para">Body 1</span><span>View A — the side you agree with <em>less</em></span></div>
+            <div class="note-row"><span class="note-para">Body 2</span><span>View B — the side you lean toward</span></div>
+            <div class="note-row"><span class="note-para">Conclusion</span><span>Restate opinion + brief summary</span></div>
+          </div>
+          <div class="note-warning">Don't skip discussing one side — that kills Task Achievement.</div>
+        </div>
+
+        <div class="note-card">
+          <div class="note-type">Type 2 · Opinion</div>
+          <div class="note-trigger">"To what extent do you agree or disagree?"</div>
+          <div class="note-structure">
+            <div class="note-row"><span class="note-para">Intro</span><span>Paraphrase + clear stance</span></div>
+            <div class="note-row"><span class="note-para">Body 1</span><span>Reason 1 for your stance</span></div>
+            <div class="note-row"><span class="note-para">Body 2</span><span>Reason 2 — or concede opposing view, then counter it</span></div>
+            <div class="note-row"><span class="note-para">Conclusion</span><span>Restate stance</span></div>
+          </div>
+          <div class="note-warning">Pick a clear side. Sitting on the fence hurts your score.</div>
+        </div>
+
+        <div class="note-card">
+          <div class="note-type">Type 3 · Problem / Solution</div>
+          <div class="note-trigger">"What are the causes? What are the solutions?"</div>
+          <div class="note-structure">
+            <div class="note-row"><span class="note-para">Intro</span><span>Paraphrase + signal you'll cover both</span></div>
+            <div class="note-row"><span class="note-para">Body 1</span><span>2 causes with explanation</span></div>
+            <div class="note-row"><span class="note-para">Body 2</span><span>2 solutions linked to those causes</span></div>
+            <div class="note-row"><span class="note-para">Conclusion</span><span>Brief summary</span></div>
+          </div>
+          <div class="note-warning">Match solutions to causes — don't introduce new problems in Body 2.</div>
+        </div>
+
+        <div class="note-card">
+          <div class="note-type">Type 4 · Two-part question</div>
+          <div class="note-trigger">"Why is this happening? Is this positive or negative?"</div>
+          <div class="note-structure">
+            <div class="note-row"><span class="note-para">Intro</span><span>Paraphrase + signal you'll answer both parts</span></div>
+            <div class="note-row"><span class="note-para">Body 1</span><span>Answer part 1 fully</span></div>
+            <div class="note-row"><span class="note-para">Body 2</span><span>Answer part 2 fully</span></div>
+            <div class="note-row"><span class="note-para">Conclusion</span><span>Brief summary</span></div>
+          </div>
+          <div class="note-warning">Both parts need roughly equal space — don't neglect one.</div>
+        </div>
+
+      </div>
+
+      <div class="notes-heading" style="margin-top:2rem">Introduction Formula (all 4 types)</div>
+      <div class="note-formula">
+        <div class="note-formula-row"><span class="note-num">1</span><span>Paraphrase the question — <strong>do not copy it word for word.</strong></span></div>
+        <div class="note-formula-row"><span class="note-num">2</span><span>State your position or what you will cover. That's it — 2 sentences only.</span></div>
+        <div class="note-formula-avoid">Never start with: <em>"In this essay I will tell you about..."</em> — it's filler and wastes words.</div>
+      </div>
+
+    </div>
   </div>
 </div>
 
