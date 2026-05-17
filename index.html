@@ -628,6 +628,152 @@
   @media (max-width: 700px) {
     .notes-grid { grid-template-columns: 1fr; }
   }
+
+  .wlog-intro {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-bottom: 1.25rem;
+  }
+
+  .wlog-entry {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.25rem;
+  }
+
+  .wlog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .wlog-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-right: 8px;
+  }
+
+  .wlog-badge {
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  .wlog-final {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-3);
+  }
+
+  .wlog-question {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    padding: 12px 14px;
+    background: var(--surface-alt);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .wlog-attempts { display: flex; flex-direction: column; gap: 8px; }
+
+  .wlog-draft, .wlog-model {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .wlog-draft summary, .wlog-model summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--surface-alt);
+    list-style: none;
+    user-select: none;
+  }
+
+  .wlog-draft summary::-webkit-details-marker,
+  .wlog-model summary::-webkit-details-marker { display: none; }
+
+  .wlog-draft summary::after,
+  .wlog-model summary::after {
+    content: '›';
+    margin-left: auto;
+    color: var(--ink-3);
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+
+  .wlog-draft[open] summary::after,
+  .wlog-model[open] summary::after { transform: rotate(90deg); }
+
+  .wlog-draft-body {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .wlog-band {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .wlog-band--low { background: rgba(226,75,74,0.12); color: #C03838; }
+  .wlog-band--mid { background: rgba(216,90,48,0.12); color: #B84A1A; }
+  .wlog-band--high { background: rgba(84,140,47,0.12); color: #3A7015; }
+
+  .wlog-feedback {
+    background: rgba(0,0,0,0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-top: 4px;
+  }
+
+  .wlog-feedback-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    margin-bottom: 8px;
+  }
+
+  .wlog-feedback ul {
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .wlog-feedback li { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+
+  .wlog-model summary { background: rgba(45,91,227,0.05); }
     .metrics, .sections, .week-grid { grid-template-columns: repeat(2, 1fr); }
     .chart-row { grid-template-columns: 1fr; }
     .form-grid { grid-template-columns: 1fr; }
@@ -657,6 +803,7 @@
     <button class="tab-btn" data-tab="log"><i class="ti ti-plus" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>Log session</button>
     <button class="tab-btn" data-tab="history"><i class="ti ti-list" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>History</button>
     <button class="tab-btn" data-tab="notes"><i class="ti ti-notebook" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>Notes</button>
+    <button class="tab-btn" data-tab="writing"><i class="ti ti-writing" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>Writing log</button>
   </div>
 
   <div class="panel active" id="panel-overview">
@@ -805,6 +952,104 @@
 
     </div>
   </div>
+
+  <div class="panel" id="panel-writing">
+    <div class="wlog-intro">Each entry records a practice session: your drafts, feedback, and the model answer.</div>
+
+    <!-- SESSION: 2026-05-17 -->
+    <div class="wlog-entry">
+      <div class="wlog-header">
+        <div>
+          <span class="wlog-date">17 May 2026</span>
+          <span class="wlog-badge">Task 2 · Discussion</span>
+        </div>
+        <span class="wlog-final">Final: Band 6.5</span>
+      </div>
+
+      <div class="wlog-question">
+        Some people think that the best way to improve public health is by increasing the number of sports facilities. Others, however, think that this would have little effect on public health and that other measures are required. <strong>Discuss both views and give your own opinion.</strong>
+      </div>
+
+      <div class="wlog-attempts">
+
+        <details class="wlog-draft">
+          <summary><span class="wlog-band wlog-band--low">Band 4.5</span><span>Draft 1 — first attempt</span></summary>
+          <div class="wlog-draft-body">
+            <p>I think the number of sports facilities should be increased and other measures are also required.</p>
+            <p>First of all, exercises can be a wonderful start to build some musles so that to improve body conditions not just from outside but from the inside. For example, if the number of sports facilities as well as the types of them are increased, people will have more aware of exercising and improving their own bodies condition.</p>
+            <p>Besides, some propoganda should be put into reality the same time. For example, if people know the benefite of exercising, I believe most of them will have more willing to do that, otherwise, obesity or so can be a serious social problem.</p>
+            <p>Finally, I take both opinions.</p>
+            <div class="wlog-feedback">
+              <div class="wlog-feedback-label">Key feedback</div>
+              <ul>
+                <li><strong>Task Achievement:</strong> ~120 words (min 250). Both views not discussed — jumped straight to personal opinion. "Finally, I take both opinions" is not a conclusion.</li>
+                <li><strong>Grammar:</strong> "people will have more aware" and "will have more willing" — systematic errors. Use <em>become more aware</em> / <em>be more willing</em>.</li>
+                <li><strong>Lexical Resource:</strong> "obesity or so," "put into reality," "some propaganda" — too informal. Replace with: <em>health issues such as obesity</em>, <em>implemented</em>, <em>public health campaigns</em>.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="wlog-draft">
+          <summary><span class="wlog-band wlog-band--mid">Band 6.5</span><span>Draft 2 — after feedback</span></summary>
+          <div class="wlog-draft-body">
+            <p>Nowadays, improving public health has become a major concern for many governments. Some people believe that increasing the number of sports facilities is the best way to encourage a healthier lifestyle. Others, however, argue that this measure alone is not enough and that other actions are needed. This essay will discuss both views and explain why I believe a combination of different measures is more effective.</p>
+            <p>On the one hand, building more sports facilities can certainly help improve public health. Modern gyms, public swimming pools, football fields, and fitness parks provide people with more opportunities to exercise regularly. When sports facilities are easily accessible and affordable, individuals are more likely to develop healthy habits and stay physically active. For example, many cities that build free outdoor gyms or bicycle lanes often see an increase in the number of people exercising. As a result, problems such as obesity, heart disease, and diabetes may be reduced.</p>
+            <p>On the other hand, simply increasing sports facilities may have only a limited effect. Many people are aware of the benefits of exercise but still choose inactive lifestyles due to busy work schedules, stress, or lack of motivation. Therefore, other measures are equally important. Governments should promote health education, encourage balanced diets, and reduce the consumption of unhealthy food through higher taxes or stricter regulations. In addition, improving healthcare services and organizing public health campaigns can help people become more conscious of their physical condition and lifestyle choices.</p>
+            <p>In my opinion, although sports facilities play an important role in promoting exercise, they are not the only solution to public health problems. A healthy society depends on several factors, including education, diet, medical support, and public awareness. Therefore, governments should adopt a comprehensive approach rather than focusing on a single measure.</p>
+            <div class="wlog-feedback">
+              <div class="wlog-feedback-label">Key feedback</div>
+              <ul>
+                <li><strong>Coherence &amp; Cohesion:</strong> Body 2 loses focus — starts as a counterargument but shifts into government recommendations. Keep one job per paragraph.</li>
+                <li><strong>Lexical Resource:</strong> "sports facilities" repeated 6 times. Alternate with <em>recreational infrastructure</em>, <em>exercise venues</em>, <em>fitness amenities</em>.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="wlog-draft">
+          <summary><span class="wlog-band wlog-band--mid">Band 6.0–6.5</span><span>Draft 3 — revised Body 2</span></summary>
+          <div class="wlog-draft-body">
+            <p>Nowadays, improving public health has become a major concern for many governments. Some people believe that increasing the number of sports facilities is the best way to encourage a healthier lifestyle. Others, however, argue that this measure alone is not enough and that other actions are needed. This essay will discuss both views and explain why I believe a combination of different measures is more effective.</p>
+            <p>On the one hand, building more sports facilities can certainly help improve public health. Modern gyms, public swimming pools, football fields, and fitness parks provide people with more opportunities to exercise regularly. When sports facilities are easily accessible and affordable, individuals are more likely to develop healthy habits and stay physically active. For example, many cities that build free outdoor gyms or bicycle lanes often see an increase in the number of people exercising. As a result, problems such as obesity, heart disease, and diabetes may be reduced.</p>
+            <p>On the other hand, simply increasing recreational infrastructure may have only a limited effect. Many people are aware of the benefits of exercise but still choose inactive lifestyles due to busy work schedules, stress, or lack of motivation. Therefore, other measures are equally important. Also, people could take different approach to get their body built, to merely increase the number of facilities will certainly not meet the need of a great amount of population.</p>
+            <p>In my opinion, although sports facilities play an important role in promoting exercise, they are not the only solution to public health problems. A healthy society depends on several factors, including education, diet, medical support, and public awareness. Therefore, governments should adopt a comprehensive approach rather than focusing on a single measure.</p>
+            <div class="wlog-feedback">
+              <div class="wlog-feedback-label">Key feedback</div>
+              <ul>
+                <li><strong>Grammar:</strong> "take different approach" → <em>take a different approach</em>. "get their body built" is informal → <em>improve their physical health</em>. Comma before "to merely increase" creates a run-on — use a full stop.</li>
+                <li><strong>Task Achievement:</strong> Body 2 now repeats the same point twice (limited effect → doesn't meet population needs). Needs: claim → reason WHY → example of what works better.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+      </div>
+
+      <details class="wlog-model">
+        <summary><span class="wlog-band wlog-band--high">Band 7.0</span><span>Model answer</span></summary>
+        <div class="wlog-draft-body">
+          <p>While access to sports facilities undoubtedly encourages physical activity, I would argue that a broader set of interventions is required to achieve meaningful improvements in public health.</p>
+          <p>Proponents of expanding recreational infrastructure contend that greater access directly translates to higher participation rates. When gyms, swimming pools, and public fitness parks are affordable and conveniently located, people are more likely to incorporate exercise into their daily routines. Evidence from several European cities suggests that investment in cycling lanes and outdoor fitness zones has led to measurable increases in physical activity among residents, with associated reductions in obesity and cardiovascular disease.</p>
+          <p>However, availability alone does not guarantee behavioural change. Many individuals are fully aware of the health benefits of exercise yet remain sedentary due to demanding work schedules, stress, or deeply ingrained habits — a gym that sits unused serves no public health purpose. Addressing these underlying barriers requires complementary measures: public health campaigns that shift attitudes toward preventive care, policies that restrict the marketing of unhealthy food, and workplace initiatives that make active lifestyles more compatible with modern employment. These approaches target the root causes of poor health rather than simply providing infrastructure that only motivated individuals will use.</p>
+          <p>In my view, sports facilities form one valuable component of a broader public health strategy, but they cannot function effectively in isolation. Governments that combine investment in exercise infrastructure with education, dietary regulation, and community support are far more likely to achieve lasting improvements in population health.</p>
+          <div class="wlog-feedback" style="background:rgba(45,91,227,0.06);border-color:rgba(45,91,227,0.15)">
+            <div class="wlog-feedback-label" style="color:var(--accent)">What makes this Band 7.0</div>
+            <ul>
+              <li>Body 2 follows <strong>claim → reason → example</strong> all the way through — no drift into recommendations.</li>
+              <li>Vocabulary is varied and precise: <em>contend</em>, <em>sedentary</em>, <em>ingrained habits</em>, <em>complementary measures</em>, <em>behavioural change</em>.</li>
+              <li>The em-dash in "deeply ingrained habits — a gym that sits unused…" shows grammatical range without being showy.</li>
+              <li>Intro drops "This essay will discuss…" — the position is stated directly, which reads as more confident.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+    </div>
+    <!-- END SESSION -->
+
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
