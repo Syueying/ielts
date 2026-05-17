@@ -1070,6 +1070,12 @@ const STORE_KEY = 'ielts_tracker_sessions';
 let sessions = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
 let pieChart = null, barChart = null;
 
+const SEEDED = [
+  { _id:'seed_20260517_writing', section:'Writing', activity:'Task 2 — sports facilities / public health (3 drafts)', duration:44, score:'Band 6.5', confidence:'Medium', notes:'Body 2: use claim → reason → example. Avoid vocabulary repetition.', date:'2026-05-17', _ts:1747440000000 }
+];
+SEEDED.forEach(s => { if (!sessions.find(x => x._id === s._id)) sessions.push(s); });
+save();
+
 function save() { localStorage.setItem(STORE_KEY, JSON.stringify(sessions)); }
 
 function toast(msg) {
