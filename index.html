@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS 30-Day Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.6.0/tabler-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #F8F6F1;
+    --surface: #FFFFFF;
+    --surface-alt: #F0EDE6;
+    --ink: #1A1917;
+    --ink-2: #5C5B56;
+    --ink-3: #9B9A94;
+    --ink-4: #C8C6BF;
+    --accent: #2D5BE3;
+    --accent-light: #E8EEFB;
+    --border: rgba(0,0,0,0.08);
+    --listening: #2D7DD2;
+    --reading: #548C2F;
+    --writing: #D85A30;
+    --speaking: #7C4DFF;
+    --vocabulary: #D4537E;
+    --mocktest: #E24B4A;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --font: 'DM Sans', sans-serif;
+    --font-display: 'Fraunces', serif;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141413;
+      --surface: #1E1E1C;
+      --surface-alt: #262624;
+      --ink: #EDECE8;
+      --ink-2: #A8A7A1;
+      --ink-3: #6E6D68;
+      --ink-4: #3D3D3A;
+      --accent: #5B8DEF;
+      --accent-light: #1E2A45;
+      --border: rgba(255,255,255,0.08);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+      --shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  header {
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  h1 span {
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink-2);
+  }
+
+  .target-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.75rem;
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+
+  .metric-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .metric-sub {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 1px;
+  }
+
+  .sections {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.75rem;
+  }
+
+  .sec-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sec-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: var(--progress, 0%);
+    background: var(--sec-color);
+    transition: width 0.5s ease;
+  }
+
+  .sec-name {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .sec-band {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .sec-detail {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .tab-btn:hover { color: var(--ink-2); }
+  .tab-btn.active { color: var(--ink); border-bottom-color: var(--accent); }
+
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadeUp 0.3s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .streak-label {
+    font-size: 12px;
+    color: var(--ink-3);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .streak-grid {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .streak-cell {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    position: relative;
+    cursor: default;
+    transition: transform 0.15s;
+  }
+
+  .streak-cell:hover { transform: scale(1.3); z-index: 2; }
+
+  .streak-cell[data-tip]::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+
+  .streak-cell:hover::after { opacity: 1; }
+
+  .chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 1.75rem;
+  }
+
+  .chart-box {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+
+  .chart-title {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+
+  .chart-canvas-wrap {
+    position: relative;
+    height: 200px;
+  }
+
+  .form-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 100px;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .field select, .field input, .field textarea {
+    width: 100%;
+    padding: 9px 12px;
+    font-family: var(--font);
+    font-size: 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-alt);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .field select:focus, .field input:focus, .field textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,91,227,0.1);
+  }
+
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-3);
+    margin-bottom: 5px;
+  }
+
+  .field textarea { resize: vertical; min-height: 60px; }
+
+  .btn-primary {
+    width: 100%;
+    padding: 11px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-top: 6px;
+  }
+
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-danger {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--ink-3);
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-danger:hover { color: #E24B4A; border-color: #E24B4A; }
+
+  .history-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .history-entry:last-child { border-bottom: none; }
+
+  .h-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .h-name {
+    flex: 1;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .h-meta {
+    color: var(--ink-3);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .h-score {
+    background: var(--surface-alt);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+
+  .h-delete {
+    background: none;
+    border: none;
+    color: var(--ink-4);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+  }
+
+  .history-entry:hover .h-delete { opacity: 1; }
+  .h-delete:hover { color: #E24B4A; }
+
+  .empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--ink-3);
+    font-size: 14px;
+  }
+
+  .empty i { font-size: 32px; display: block; margin-bottom: 8px; color: var(--ink-4); }
+
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.75rem;
+  }
+
+  .week-col {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+
+  .week-header {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-2);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .week-header span { color: var(--ink-3); font-weight: 400; }
+
+  .week-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-height: 18px;
+  }
+
+  .week-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+
+  .week-empty {
+    font-size: 11px;
+    color: var(--ink-4);
+    font-style: italic;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--ink);
+    color: var(--bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 700px) {
+    .metrics, .sections, .week-grid { grid-template-columns: repeat(2, 1fr); }
+    .chart-row { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid-2 { grid-template-columns: 1fr; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div>
+      <h1>IELTS tracker <span>30 days</span></h1>
+    </div>
+    <div class="target-badge">
+      <i class="ti ti-target" style="font-size:15px"></i>
+      Target: Band 7.0
+    </div>
+  </header>
+
+  <div class="metrics" id="metrics"></div>
+  <div class="sections" id="sections"></div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="overview"><i class="ti ti-chart-dots-3" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>Overview</button>
+    <button class="tab-btn" data-tab="log"><i class="ti ti-plus" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>Log session</button>
+    <button class="tab-btn" data-tab="history"><i class="ti ti-list" style="font-size:15px;vertical-align:-2px;margin-right:4px"></i>History</button>
+  </div>
+
+  <div class="panel active" id="panel-overview">
+    <div class="streak-label">
+      <span>Study streak — last 30 days</span>
+      <span id="streak-count"></span>
+    </div>
+    <div class="streak-grid" id="streak"></div>
+
+    <div class="chart-row">
+      <div class="chart-box">
+        <div class="chart-title">Time by section</div>
+        <div class="chart-canvas-wrap"><canvas id="pieChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">Daily study (last 14 days)</div>
+        <div class="chart-canvas-wrap"><canvas id="barChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-title" style="margin-bottom:8px">Weekly breakdown</div>
+    <div class="week-grid" id="weeks"></div>
+  </div>
+
+  <div class="panel" id="panel-log">
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="field">
+          <label>Section</label>
+          <select id="f-section">
+            <option value="">Choose...</option>
+            <option value="Listening">Listening</option>
+            <option value="Reading">Reading</option>
+            <option value="Writing">Writing</option>
+            <option value="Speaking">Speaking</option>
+            <option value="Vocabulary">Vocabulary</option>
+            <option value="Mock Test">Mock test</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Activity</label>
+          <input id="f-activity" placeholder="e.g. Task 2 essay on education" />
+        </div>
+        <div class="field">
+          <label>Minutes</label>
+          <input id="f-duration" type="number" min="1" placeholder="45" />
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="field">
+          <label>Score (optional)</label>
+          <input id="f-score" placeholder="e.g. 32/40 or Band 6.5" />
+        </div>
+        <div class="field">
+          <label>Confidence</label>
+          <select id="f-confidence">
+            <option value="">Choose...</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Notes</label>
+        <textarea id="f-notes" placeholder="Key takeaways, mistakes to fix, what went well..."></textarea>
+      </div>
+      <button class="btn-primary" onclick="logSession()">
+        <i class="ti ti-check" style="font-size:16px;vertical-align:-2px;margin-right:4px"></i>
+        Log session
+      </button>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-history">
+    <div id="history-list"></div>
+    <button class="btn-danger" id="btn-clear" onclick="clearAll()" style="display:none">
+      <i class="ti ti-trash" style="font-size:14px;vertical-align:-2px;margin-right:4px"></i>
+      Clear all data
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SEC_COLORS = {
+  Listening: getComputedStyle(document.documentElement).getPropertyValue('--listening').trim(),
+  Reading: getComputedStyle(document.documentElement).getPropertyValue('--reading').trim(),
+  Writing: getComputedStyle(document.documentElement).getPropertyValue('--writing').trim(),
+  Speaking: getComputedStyle(document.documentElement).getPropertyValue('--speaking').trim(),
+  Vocabulary: getComputedStyle(document.documentElement).getPropertyValue('--vocabulary').trim(),
+  'Mock Test': getComputedStyle(document.documentElement).getPropertyValue('--mocktest').trim()
+};
+
+const BASELINE = { Listening: 7.0, Reading: 6.5, Writing: 6.0, Speaking: 6.0 };
+const STORE_KEY = 'ielts_tracker_sessions';
+
+let sessions = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+let pieChart = null, barChart = null;
+
+function save() { localStorage.setItem(STORE_KEY, JSON.stringify(sessions)); }
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+}
+
+document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+
+function getStartDate() {
+  if (sessions.length === 0) return new Date();
+  return new Date(Math.min(...sessions.map(s => new Date(s.date))));
+}
+
+function getWeek(dateStr) {
+  const start = getStartDate();
+  const diff = Math.floor((new Date(dateStr) - start) / (7 * 24 * 60 * 60 * 1000));
+  return Math.min(Math.max(diff, 0), 3);
+}
+
+function render() {
+  renderMetrics();
+  renderSections();
+  renderStreak();
+  renderCharts();
+  renderWeeks();
+  renderHistory();
+}
+
+function renderMetrics() {
+  const total = sessions.reduce((a, s) => a + s.duration, 0);
+  const days = new Set(sessions.map(s => s.date)).size;
+  const now = new Date();
+  const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+  const thisWeek = sessions.filter(s => new Date(s.date) >= weekAgo);
+  const weekMin = thisWeek.reduce((a, s) => a + s.duration, 0);
+  const avg = days > 0 ? Math.round(total / days) : 0;
+
+  let currentStreak = 0;
+  const daySet = new Set(sessions.map(s => s.date));
+  for (let i = 0; i < 30; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    if (daySet.has(d.toISOString().slice(0, 10))) currentStreak++;
+    else break;
+  }
+
+  document.getElementById('metrics').innerHTML = `
+    <div class="metric-card"><div class="metric-label">Total study time</div><div class="metric-value">${(total / 60).toFixed(1)}h</div><div class="metric-sub">${total} minutes logged</div></div>
+    <div class="metric-card"><div class="metric-label">Sessions</div><div class="metric-value">${sessions.length}</div><div class="metric-sub">${days} unique days</div></div>
+    <div class="metric-card"><div class="metric-label">This week</div><div class="metric-value">${(weekMin / 60).toFixed(1)}h</div><div class="metric-sub">${thisWeek.length} sessions</div></div>
+    <div class="metric-card"><div class="metric-label">Current streak</div><div class="metric-value">${currentStreak}d</div><div class="metric-sub">avg ${avg}m/day</div></div>
+  `;
+}
+
+function renderSections() {
+  const secs = ['Listening', 'Reading', 'Writing', 'Speaking'];
+  document.getElementById('sections').innerHTML = secs.map(name => {
+    const mine = sessions.filter(s => s.section === name);
+    const mins = mine.reduce((a, s) => a + s.duration, 0);
+    const pct = Math.min(mins / 600 * 100, 100);
+    const color = SEC_COLORS[name];
+    return `<div class="sec-card" style="--progress:${pct}%;--sec-color:${color}">
+      <div class="sec-name" style="color:${color}">${name}</div>
+      <div class="sec-band">${BASELINE[name]}</div>
+      <div class="sec-detail">${mine.length} sessions · ${mins}m</div>
+    </div>`;
+  }).join('');
+}
+
+function renderStreak() {
+  const el = document.getElementById('streak');
+  const today = new Date();
+  let html = '';
+  let activeDays = 0;
+  const colors = ['var(--surface-alt)', '#B5D4F4', '#85B7EB', '#378ADD', '#185FA5'];
+
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - (29 - i));
+    const ds = d.toISOString().slice(0, 10);
+    const dayS = sessions.filter(s => s.date === ds);
+    const mins = dayS.reduce((a, s) => a + s.duration, 0);
+    let bg = colors[0];
+    if (mins > 0) { activeDays++; }
+    if (mins > 0 && mins < 30) bg = colors[1];
+    else if (mins >= 30 && mins < 60) bg = colors[2];
+    else if (mins >= 60 && mins < 90) bg = colors[3];
+    else if (mins >= 90) bg = colors[4];
+    const label = d.toLocaleDateString('en', { month: 'short', day: 'numeric' });
+    html += `<div class="streak-cell" style="background:${bg}" data-tip="${label}: ${mins}m"></div>`;
+  }
+  el.innerHTML = html;
+  document.getElementById('streak-count').textContent = `${activeDays}/30 days active`;
+}
+
+function renderCharts() {
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+  const textColor = isDark ? '#A8A7A1' : '#9B9A94';
+
+  const bySection = {};
+  sessions.forEach(s => { bySection[s.section] = (bySection[s.section] || 0) + s.duration; });
+  const pieLabels = Object.keys(bySection);
+  const pieData = Object.values(bySection);
+  const pieColors = pieLabels.map(l => SEC_COLORS[l] || '#888');
+
+  if (pieChart) pieChart.destroy();
+  pieChart = new Chart(document.getElementById('pieChart'), {
+    type: 'doughnut',
+    data: { labels: pieLabels, datasets: [{ data: pieData, backgroundColor: pieColors, borderWidth: 0 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '58%',
+      plugins: {
+        legend: {
+          display: true, position: 'right',
+          labels: {
+            boxWidth: 8, padding: 10, font: { size: 11, family: "'DM Sans', sans-serif" }, color: textColor,
+            generateLabels: (c) => c.data.labels.map((l, i) => ({
+              text: `${l} ${Math.round(c.data.datasets[0].data[i] / 60 * 10) / 10}h`,
+              fillStyle: c.data.datasets[0].backgroundColor[i],
+              strokeStyle: 'transparent', lineWidth: 0, index: i
+            }))
+          }
+        }
+      }
+    }
+  });
+
+  const last14 = [];
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const ds = d.toISOString().slice(0, 10);
+    const mins = sessions.filter(s => s.date === ds).reduce((a, s) => a + s.duration, 0);
+    last14.push({ label: d.toLocaleDateString('en', { day: 'numeric', month: 'short' }), value: mins });
+  }
+
+  if (barChart) barChart.destroy();
+  barChart = new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels: last14.map(d => d.label),
+      datasets: [{
+        data: last14.map(d => d.value),
+        backgroundColor: last14.map(d => d.value >= 90 ? '#2D5BE3' : d.value > 0 ? '#85B7EB' : (isDark ? '#2A2A28' : '#E8E6DF')),
+        borderRadius: 4, barPercentage: 0.7
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { font: { size: 9, family: "'DM Sans'" }, color: textColor, maxRotation: 45 }, grid: { display: false }, border: { display: false } },
+        y: { ticks: { font: { size: 10, family: "'DM Sans'" }, color: textColor, callback: v => v + 'm' }, grid: { color: gridColor }, border: { display: false } }
+      }
+    }
+  });
+}
+
+function renderWeeks() {
+  document.getElementById('weeks').innerHTML = [0, 1, 2, 3].map(w => {
+    const ws = sessions.filter(s => getWeek(s.date) === w);
+    const mins = ws.reduce((a, s) => a + s.duration, 0);
+    const dots = ws.map(s => `<div class="week-dot" style="background:${SEC_COLORS[s.section] || '#888'}" title="${s.section}: ${s.activity || ''}"></div>`).join('');
+    return `<div class="week-col">
+      <div class="week-header">Week ${w + 1} <span>${(mins / 60).toFixed(1)}h</span></div>
+      <div class="week-dots">${dots || '<span class="week-empty">No sessions yet</span>'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderHistory() {
+  const el = document.getElementById('history-list');
+  document.getElementById('btn-clear').style.display = sessions.length > 0 ? '' : 'none';
+
+  if (sessions.length === 0) {
+    el.innerHTML = '<div class="empty"><i class="ti ti-notebook"></i>No sessions logged yet.<br>Start studying and log your first session!</div>';
+    return;
+  }
+
+  const sorted = [...sessions].sort((a, b) => new Date(b.date) - new Date(a.date) || (b._ts || 0) - (a._ts || 0));
+  el.innerHTML = sorted.map((s, idx) => {
+    const origIdx = sessions.indexOf(s);
+    return `<div class="history-entry">
+      <div class="h-dot" style="background:${SEC_COLORS[s.section] || '#888'}"></div>
+      <div class="h-name">${s.activity || s.section}</div>
+      ${s.score ? `<span class="h-score">${s.score}</span>` : ''}
+      <span class="h-meta">${s.date}</span>
+      <span class="h-meta">${s.duration}m</span>
+      <button class="h-delete" onclick="deleteSession(${origIdx})" title="Delete"><i class="ti ti-x" style="font-size:14px"></i></button>
+    </div>`;
+  }).join('');
+}
+
+function logSession() {
+  const section = document.getElementById('f-section').value;
+  const activity = document.getElementById('f-activity').value;
+  const duration = parseInt(document.getElementById('f-duration').value) || 0;
+
+  if (!section) { toast('Pick a section'); return; }
+  if (!duration) { toast('Enter duration in minutes'); return; }
+
+  sessions.push({
+    section, activity, duration,
+    score: document.getElementById('f-score').value,
+    confidence: document.getElementById('f-confidence').value,
+    notes: document.getElementById('f-notes').value,
+    date: new Date().toISOString().slice(0, 10),
+    _ts: Date.now()
+  });
+
+  save();
+  render();
+
+  ['f-section', 'f-confidence'].forEach(id => document.getElementById(id).value = '');
+  ['f-activity', 'f-duration', 'f-score', 'f-notes'].forEach(id => document.getElementById(id).value = '');
+
+  toast('Session logged!');
+  showTab('overview');
+}
+
+function deleteSession(idx) {
+  if (!confirm('Delete this session?')) return;
+  sessions.splice(idx, 1);
+  save();
+  render();
+  toast('Session deleted');
+}
+
+function clearAll() {
+  if (!confirm('This will delete ALL your data. Are you sure?')) return;
+  if (!confirm('Really? This cannot be undone.')) return;
+  sessions = [];
+  save();
+  render();
+  toast('All data cleared');
+}
+
+render();
+</script>
+
+</body>
+</html>
